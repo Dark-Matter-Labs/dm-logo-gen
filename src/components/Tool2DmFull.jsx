@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Preview from './Preview.jsx'
 import { FieldSet, RadioGroup } from './FormParts.jsx'
 
-export default function Tool2DmFull() {
+export default function Tool2DmFull({ darkUI }) {
   const [mode, setMode] = useState('light')
   const [inkColor, setInkColor] = useState('black')
 
@@ -30,7 +30,7 @@ export default function Tool2DmFull() {
           </FieldSet>
         )}
       </div>
-      <Preview lockup={lockup} mode={mode} inkColor={inkColor} basename="dm-full" />
+      <Preview lockup={lockup} mode={mode} inkColor={inkColor} basename="dm-full" darkUI={darkUI} />
     </div>
   )
 }

@@ -9,7 +9,7 @@ function formatCode(raw) {
   return letters[0].toUpperCase() + letters[1].toLowerCase()
 }
 
-export default function Tool3LabArc() {
+export default function Tool3LabArc({ darkUI }) {
   const [category, setCategory] = useState('lab')
   const [code, setCode] = useState('Ne')
   const [name, setName] = useState('Next economics')
@@ -121,7 +121,7 @@ export default function Tool3LabArc() {
         )}
       </div>
 
-      <Preview lockup={lockup} mode={mode} inkColor={inkColor} basename={basename} />
+      <Preview lockup={lockup} mode={mode} inkColor={inkColor} basename={basename} darkUI={darkUI} />
     </div>
   )
 }

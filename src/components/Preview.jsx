@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import LogoSVG from './LogoSVG.jsx'
 import DownloadButtons from './DownloadButtons.jsx'
 
-export default function Preview({ lockup, mode, inkColor, basename }) {
+export default function Preview({ lockup, mode, inkColor, basename, darkUI }) {
   const svgRef = useRef(null)
 
   const previewBg =
@@ -16,7 +16,7 @@ export default function Preview({ lockup, mode, inkColor, basename }) {
       >
         <LogoSVG lockup={lockup} mode={mode} inkColor={inkColor} svgRef={svgRef} />
       </div>
-      <DownloadButtons svgRef={svgRef} basename={basename} mode={mode} />
+      <DownloadButtons svgRef={svgRef} basename={basename} darkUI={darkUI} />
     </div>
   )
 }

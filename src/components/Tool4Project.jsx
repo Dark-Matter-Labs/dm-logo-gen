@@ -22,7 +22,7 @@ function CodeInput({ value, onChange, placeholder }) {
   )
 }
 
-export default function Tool4Project() {
+export default function Tool4Project({ darkUI }) {
   const [projectName, setProjectName] = useState('Multivalent currencies')
   const [projectShape, setProjectShape] = useState('pill') // 'pill' | 'mc'
   const [mcCode, setMcCode] = useState('Mc')
@@ -189,7 +189,7 @@ export default function Tool4Project() {
         )}
       </div>
 
-      <Preview lockup={lockup} mode={mode} inkColor={inkColor} basename={basename} />
+      <Preview lockup={lockup} mode={mode} inkColor={inkColor} basename={basename} darkUI={darkUI} />
     </div>
   )
 }

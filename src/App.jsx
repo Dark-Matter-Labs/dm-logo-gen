@@ -66,10 +66,10 @@ export default function App() {
 
       {/* Content */}
       <main className="px-6 py-8" style={{ maxWidth: 1200 }}>
-        {activeTab === 'dm-stamp' && <Tool1Dm />}
-        {activeTab === 'dm-full' && <Tool2DmFull />}
-        {activeTab === 'lab-arc' && <Tool3LabArc />}
-        {activeTab === 'project' && <Tool4Project />}
+        {activeTab === 'dm-stamp' && <Tool1Dm darkUI={darkUI} />}
+        {activeTab === 'dm-full' && <Tool2DmFull darkUI={darkUI} />}
+        {activeTab === 'lab-arc' && <Tool3LabArc darkUI={darkUI} />}
+        {activeTab === 'project' && <Tool4Project darkUI={darkUI} />}
       </main>
     </div>
   )
