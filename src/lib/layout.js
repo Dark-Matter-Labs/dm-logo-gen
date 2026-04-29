@@ -40,8 +40,12 @@ export const CANVAS_PAD = Math.round(BASE * 0.25)
 // Matches Figma: 04 sits near top-right, inset ~6% of box
 export const LABEL_INSET = Math.round(BASE * 0.06)
 
-// Pill padding
-export const PILL_PAD_X = Math.round(BASE * 0.18)
+// Pill padding — measured from the straight-line edge of the stadium shape
+// Left gap:  11.1 / 37.795 of box height
+// Right gap:  7.87 / 37.795 of box height
+// Total pill width = H + PILL_PAD_LEFT + text_width + PILL_PAD_RIGHT
+export const PILL_PAD_LEFT  = Math.round(BASE * (11.1  / FIGMA_BOX))  // ≈ 24
+export const PILL_PAD_RIGHT = Math.round(BASE * (7.87  / FIGMA_BOX))  // ≈ 17
 
 // Given a measured text width, compute total wordmark element width
 export function wordmarkWidth(textWidth) {

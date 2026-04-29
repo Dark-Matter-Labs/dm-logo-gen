@@ -3,7 +3,8 @@ import {
   BASE, STROKE, LABEL_SIZE, LABEL_WEIGHT, LETTER_SIZE, LETTER_WEIGHT,
   LETTER_CY_RATIO, WORDMARK_FONT_SIZE, WORDMARK_FONT_WEIGHT,
   WORDMARK_PAD_LEFT, WORDMARK_PAD_RIGHT,
-  GAP, CANVAS_PAD, LABEL_INSET, PILL_PAD_X
+  PILL_PAD_LEFT, PILL_PAD_RIGHT,
+  GAP, CANVAS_PAD, LABEL_INSET
 } from '../lib/layout.js'
 
 const H = BASE
@@ -178,23 +179,26 @@ export function renderMcStamp({ x, y, letters, ink }) {
 }
 
 // Project pill — stadium shape
+// Width = H (two semicircles) + PILL_PAD_LEFT + text + PILL_PAD_RIGHT
+// Text left edge aligns with where the straight line starts (x + H/2 + PILL_PAD_LEFT)
 export function renderPill({ x, y, text, measuredWidth, ink }) {
-  const w = measuredWidth + PILL_PAD_X * 2
   const r = H / 2
-  const pillFontSize = Math.round(WORDMARK_FONT_SIZE * 0.82)
+  const w = H + PILL_PAD_LEFT + measuredWidth + PILL_PAD_RIGHT
+  const textX = x + r + PILL_PAD_LEFT
+  const textY = y + H * LETTER_CY_RATIO
   return {
     width: w,
     el: (
       <g key={`pill-${x}`}>
         <rect x={x} y={y} width={w} height={H} rx={r} ry={r} fill="none" stroke={ink} strokeWidth={STROKE} />
         <text
-          x={x + w / 2}
-          y={y + H / 2}
+          x={textX}
+          y={textY}
           fontFamily="Inter, sans-serif"
           fontWeight="500"
-          fontSize={pillFontSize}
+          fontSize={WORDMARK_FONT_SIZE}
           fill={ink}
-          textAnchor="middle"
+          textAnchor="start"
           dominantBaseline="central"
         >
           {text}
@@ -277,15 +281,13 @@ export default function LogoSVG({ lockup, mode, inkColor, svgRef }) {
     ink = inkColor === 'white' ? '#ffffff' : '#000000'
   }
 
-  const pillFontSize = Math.round(WORDMARK_FONT_SIZE * 0.82)
-
   // Build measurement items for wordmarks and pills
   const measureItems = lockup.flatMap((el) => {
     if (el.type === 'std-wordmark' || el.type === 'lab-wordmark' || el.type === 'arc-wordmark') {
-      return [{ key: `wm-${el.text}`, text: el.text, fontSize: WORDMARK_FONT_SIZE, weight: 'bold' }]
+      return [{ key: `wm-${el.text}`, text: el.text, fontSize: WORDMARK_FONT_SIZE, weight: 'medium' }]
     }
     if (el.type === 'pill') {
-      return [{ key: `pill-${el.text}`, text: el.text, fontSize: pillFontSize, weight: 'medium' }]
+      return [{ key: `pill-${el.text}`, text: el.text, fontSize: WORDMARK_FONT_SIZE, weight: 'medium' }]
     }
     return []
   })
@@ -319,7 +321,7 @@ export default function LogoSVG({ lockup, mode, inkColor, svgRef }) {
       const mw = widths[`wm-${el.text}`] ?? el.text.length * WORDMARK_FONT_SIZE * 0.6
       result = renderArcWordmark({ ...params, text: el.text, measuredWidth: mw })
     } else if (el.type === 'pill') {
-      const mw = widths[`pill-${el.text}`] ?? el.text.length * pillFontSize * 0.6
+      const mw = widths[`pill-${el.text}`] ?? el.text.length * WORDMARK_FONT_SIZE * 0.55
       result = renderPill({ ...params, text: el.text, measuredWidth: mw })
     } else {
       continue
